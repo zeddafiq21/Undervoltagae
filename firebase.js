@@ -41,32 +41,33 @@ $(document).ready(function(){
 	})
 });
 
-$(document).ready(function(){
-	var database = firebase.database();
-	var relay;
+$(document).ready(function () {
+    var database = firebase.database();
+    var relay = 0; // inisialisasi default
 
-	database.ref().on("value", function(snap){
-		relay = snap.val().relay;
-		if(relay == 1){
-			document.getElementById("b").checked = true;  
+    // === Listener untuk perubahan data di Firebase ===
+    database.ref("relay/relay2").on("value", function (snapshot) {
+        relay = snapshot.val(); // ambil nilai relay langsung
+        if (relay === 1) {
+            document.getElementById("b").checked = true;
+        } else {
+            document.getElementById("b").checked = false;
+        }
+    });
 
-		} else{
-			document.getElementById("b").checked = false;
-		} 
-	});
+    // === Event ketika checkbox diklik ===
+    $("#b").click(function () {
+        var firebaseRef = database.ref("relay/relay2");
 
-	$("#b").click(function(){
-		var firebaseRef = firebase.database().ref().child("relay");
-
-		if(relay == 1){
-			firebaseRef.set(0);
-			relay = 0;
-		} else {
-			firebaseRef.set(1);
-			relay = 1;
-		}
-	})
-});
+        if (relay === 1) {
+            firebaseRef.set(0);
+            relay = 0;
+        } else {
+            firebaseRef.set(1);
+            relay = 1;
+        }
+    });
+})
 
 
 
