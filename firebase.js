@@ -94,7 +94,7 @@ document.getElementById("tegangan").innerHTML= teganganvac +" V";
     const dropStatus = document.getElementById("dropVoltageStatus");
     const visitsBlock = dropCard.closest(".visits"); // ambil parent block
 
-    if (teganganvac < 198) {
+    if (teganganvac < 209) {
         dropCard.classList.add("danger");
         visitsBlock.classList.add("dropDanger");
         dropStatus.innerText = "DROP TEGANGAN!";
